@@ -1,4 +1,4 @@
-import { MapPin, Filter, Download, TrendingUp } from 'lucide-react'
+import { Filter, Download, TrendingUp, Eye } from 'lucide-react'
 import { useOnboarding } from '@/hooks/useOnboarding'
 import { Button } from '@/components/ui/button'
 
@@ -11,16 +11,12 @@ export function WelcomeModal() {
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
       <div className="relative w-full max-w-lg mx-4 bg-white rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300">
         {/* Header with branding */}
-        <div className="bg-brand-primary text-white p-6 rounded-t-2xl">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-brand-accent rounded-xl flex items-center justify-center">
-              <MapPin className="w-6 h-6" />
-            </div>
-            <h1 className="text-2xl font-bold">Paperwork Genius</h1>
-          </div>
-          <p className="text-blue-200 text-sm">
-            See where development is happening in South Florida
-          </p>
+        <div className="bg-black text-white p-6 rounded-t-2xl flex items-center justify-center">
+          <img
+            src="/paperworkgenius.jpeg"
+            alt="Genius Lens - Paperwork Genius"
+            className="h-24 w-auto object-contain"
+          />
         </div>
 
         {/* Content */}
@@ -31,7 +27,7 @@ export function WelcomeModal() {
 
           <div className="space-y-4">
             <Feature
-              icon={<MapPin className="w-5 h-5" />}
+              icon={<Eye className="w-5 h-5" />}
               title="Explore Permits"
               description="View thousands of construction permits on an interactive map"
             />

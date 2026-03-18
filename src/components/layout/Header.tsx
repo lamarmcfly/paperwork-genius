@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LogOut, MapPin, Filter, Menu, X } from 'lucide-react'
+import { LogOut, Filter, Menu, X } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { useFilters } from '@/hooks/useFilters'
 import { Button } from '@/components/ui/button'
@@ -36,13 +36,11 @@ export function Header({ onToggleFilters, filtersOpen, viewState, onSelectSearch
     <header className="bg-brand-primary text-white h-14 flex items-center justify-between px-4 shadow-md z-20">
       {/* Logo / Brand */}
       <div className="flex items-center gap-2">
-        <div className="w-8 h-8 bg-brand-accent rounded-lg flex items-center justify-center">
-          <MapPin className="w-5 h-5 text-white" />
-        </div>
-        <div className="hidden sm:block">
-          <h1 className="text-lg font-bold tracking-tight">Paperwork Genius</h1>
-          <p className="text-[10px] text-blue-200 -mt-0.5">See where development is happening</p>
-        </div>
+        <img
+          src="/paperworkgenius.jpeg"
+          alt="Genius Lens"
+          className="h-10 w-auto object-contain"
+        />
       </div>
 
       {/* Center: Search bar (desktop) */}
