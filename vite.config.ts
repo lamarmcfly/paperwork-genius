@@ -8,6 +8,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      // Alias mapbox-gl to maplibre-gl for @mapbox/mapbox-gl-draw compatibility
+      'mapbox-gl': 'maplibre-gl',
     },
   },
   server: {

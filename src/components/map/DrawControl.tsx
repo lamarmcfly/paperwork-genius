@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+// Shim mapbox-gl with maplibre-gl before importing mapbox-gl-draw
+import '@/lib/mapbox-gl-shim'
 import MapboxDraw from '@mapbox/mapbox-gl-draw'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import type { MapRef } from 'react-map-gl/maplibre'
