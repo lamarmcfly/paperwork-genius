@@ -33,13 +33,13 @@ export function Header({ onToggleFilters, filtersOpen, viewState, onSelectSearch
   })
 
   return (
-    <header className="bg-brand-primary text-white h-14 flex items-center justify-between px-4 shadow-md z-20">
+    <header className="bg-black text-white h-20 flex items-center justify-between px-4 shadow-md z-20">
       {/* Logo / Brand */}
       <div className="flex items-center gap-2">
         <img
           src="/paperworkgenius.jpeg"
           alt="Genius Lens"
-          className="h-10 w-auto object-contain"
+          className="h-16 w-auto object-contain"
         />
       </div>
 

@@ -9,13 +9,13 @@ export function WelcomeModal() {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-      <div className="relative w-full max-w-lg mx-4 bg-white rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300">
+      <div className="relative w-full max-w-2xl mx-4 bg-white rounded-2xl shadow-2xl animate-in zoom-in-95 duration-300">
         {/* Header with branding */}
-        <div className="bg-black text-white p-6 rounded-t-2xl flex items-center justify-center">
+        <div className="bg-black text-white p-8 rounded-t-2xl flex items-center justify-center">
           <img
             src="/paperworkgenius.jpeg"
             alt="Genius Lens - Paperwork Genius"
-            className="h-24 w-auto object-contain"
+            className="h-48 w-auto object-contain"
           />
         </div>
 
