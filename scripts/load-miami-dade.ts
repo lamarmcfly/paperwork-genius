@@ -158,8 +158,9 @@ async function loadAllPermits() {
   const startTime = Date.now()
 
   // Collect records for batch processing
-  let pendingRecords: NormalizedPermit[] = []
+  const pendingRecords: NormalizedPermit[] = []
 
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     try {
       console.log(`Fetching records starting at offset ${offset}...`)

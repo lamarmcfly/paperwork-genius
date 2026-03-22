@@ -24,7 +24,7 @@ declare module '@mapbox/mapbox-gl-draw' {
     delete(ids: string | string[]): this
     getSelected(): GeoJSON.FeatureCollection
     getSelectedIds(): string[]
-    setFeatureProperty(featureId: string, property: string, value: any): this
+    setFeatureProperty(featureId: string, property: string, value: unknown): this
   }
 
   export default MapboxDraw
