@@ -14,7 +14,8 @@ export default async function handler(request: Request) {
   const origin = request.headers.get('origin') || ''
 
   // Validate CORS origin
-  const corsOrigin = origin === ALLOWED_ORIGIN || origin.includes('localhost') ? origin : ALLOWED_ORIGIN
+  const corsOrigin =
+    (origin === ALLOWED_ORIGIN || origin.includes('localhost')) ? origin : ALLOWED_ORIGIN
 
   // Build Shovels.ai API URL (V2 API)
   const shovelsUrl = new URL('https://api.shovels.ai/v2/permits')

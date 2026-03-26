@@ -11,7 +11,6 @@
     "load-data": "tsx scripts/load-miami-dade.ts"
   },
   "dependencies": {
-    "@mapbox/mapbox-gl-draw": "^1.5.1",
     "@supabase/supabase-js": "^2.39.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

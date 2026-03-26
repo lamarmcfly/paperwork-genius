@@ -17,7 +17,8 @@
       "Bash(npm install:*)",
       "Bash(Paperwork Genius\"\n- Update meta description\n- Remove unused HEIC file\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
       "Bash(npm run lint)",
-      "Bash(npm ls:*)"
+      "Bash(npm ls:*)",
+      "Bash(del \"c:\\\\Users\\\\lmar3\\\\Paperwork Genius\\\\src\\\\lib\\\\mapbox-gl-shim.ts\")"
     ]
   }
 }
