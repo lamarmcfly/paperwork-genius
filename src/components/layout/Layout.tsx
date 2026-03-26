@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { Header } from './Header'
 import { FilterPanel } from '@/components/search/FilterPanel'
+import { useAuth } from '@/hooks/useAuth'
 import type { PermitMapItem } from '@/types/permit'
 import { DEFAULT_VIEW } from '@/lib/constants'
 
@@ -15,6 +16,7 @@ export function Layout({ children }: LayoutProps) {
     longitude: DEFAULT_VIEW.longitude,
     zoom: DEFAULT_VIEW.zoom,
   })
+  const { isConfigured } = useAuth()
 
   const handleToggleFilters = useCallback(() => {
     setFiltersOpen((prev) => !prev)
@@ -32,6 +34,12 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <div className="h-screen flex flex-col">
+      {/* Demo Mode Banner */}
+      {!isConfigured && (
+        <div className="bg-amber-500 text-amber-950 text-center py-1 px-4 text-sm font-medium">
+          Demo Mode — Viewing sample data. Connect to Supabase for real permits.
+        </div>
+      )}
       <Header
         onToggleFilters={handleToggleFilters}
         filtersOpen={filtersOpen}

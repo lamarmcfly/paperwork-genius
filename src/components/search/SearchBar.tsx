@@ -146,10 +146,16 @@ export function SearchBar({ onSelectResult }: SearchBarProps) {
   )
 }
 
+// Escape regex special characters to prevent ReDoS attacks
+function escapeRegex(str: string): string {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 // Highlight matching text
 function highlightMatch(text: string, query: string) {
   if (!query) return text
-  const regex = new RegExp(`(${query})`, 'gi')
+  const escapedQuery = escapeRegex(query)
+  const regex = new RegExp(`(${escapedQuery})`, 'gi')
   const parts = text.split(regex)
   return parts.map((part, i) =>
     part.toLowerCase() === query.toLowerCase() ? (

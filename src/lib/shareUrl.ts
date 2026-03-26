@@ -35,27 +35,80 @@ export function encodeShareUrl(state: ShareState): string {
   return `${baseUrl}?${params.toString()}`
 }
 
+// Valid permit types for whitelist validation
+const VALID_PERMIT_TYPES = [
+  'new_construction',
+  'demolition',
+  'commercial_buildout',
+  'major_renovation',
+  'multifamily',
+  'other',
+]
+
+// ISO date format regex (YYYY-MM-DD)
+const ISO_DATE_REGEX = /^\d{4}-\d{2}-\d{2}$/
+
 /**
- * Decode URL params to view state
+ * Decode URL params to view state with security validation
  */
 export function decodeShareUrl(searchParams: URLSearchParams): Partial<ShareState> {
   const state: Partial<ShareState> = {}
 
+  // Validate latitude (-90 to 90)
   const lat = searchParams.get('lat')
-  const lng = searchParams.get('lng')
-  const zoom = searchParams.get('zoom')
-  const types = searchParams.get('types')
-  const minValue = searchParams.get('minValue')
-  const startDate = searchParams.get('startDate')
-  const endDate = searchParams.get('endDate')
+  if (lat) {
+    const latNum = parseFloat(lat)
+    if (!isNaN(latNum) && isFinite(latNum) && latNum >= -90 && latNum <= 90) {
+      state.lat = latNum
+    }
+  }
 
-  if (lat) state.lat = parseFloat(lat)
-  if (lng) state.lng = parseFloat(lng)
-  if (zoom) state.zoom = parseFloat(zoom)
-  if (types) state.types = types.split(',')
-  if (minValue) state.minValue = parseInt(minValue, 10)
-  if (startDate) state.startDate = startDate
-  if (endDate) state.endDate = endDate
+  // Validate longitude (-180 to 180)
+  const lng = searchParams.get('lng')
+  if (lng) {
+    const lngNum = parseFloat(lng)
+    if (!isNaN(lngNum) && isFinite(lngNum) && lngNum >= -180 && lngNum <= 180) {
+      state.lng = lngNum
+    }
+  }
+
+  // Validate zoom (0 to 22 for map tiles)
+  const zoom = searchParams.get('zoom')
+  if (zoom) {
+    const zoomNum = parseFloat(zoom)
+    if (!isNaN(zoomNum) && isFinite(zoomNum) && zoomNum >= 0 && zoomNum <= 22) {
+      state.zoom = zoomNum
+    }
+  }
+
+  // Validate and whitelist permit types
+  const types = searchParams.get('types')
+  if (types) {
+    const validTypes = types.split(',').filter((t) => VALID_PERMIT_TYPES.includes(t))
+    if (validTypes.length > 0) {
+      state.types = validTypes
+    }
+  }
+
+  // Validate minValue (positive integer, max 10 billion)
+  const minValue = searchParams.get('minValue')
+  if (minValue) {
+    const val = parseInt(minValue, 10)
+    if (!isNaN(val) && isFinite(val) && val >= 0 && val <= 10_000_000_000) {
+      state.minValue = val
+    }
+  }
+
+  // Validate date format (ISO 8601: YYYY-MM-DD)
+  const startDate = searchParams.get('startDate')
+  if (startDate && ISO_DATE_REGEX.test(startDate)) {
+    state.startDate = startDate
+  }
+
+  const endDate = searchParams.get('endDate')
+  if (endDate && ISO_DATE_REGEX.test(endDate)) {
+    state.endDate = endDate
+  }
 
   return state
 }

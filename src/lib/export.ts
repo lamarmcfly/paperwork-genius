@@ -82,10 +82,18 @@ Data sourced from Miami-Dade County & Shovels.ai
   downloadFile(report, 'permit-summary.txt', 'text/plain;charset=utf-8;')
 }
 
-// Helper: Escape CSV special characters
+// Helper: Escape CSV special characters and prevent formula injection
 function escapeCSV(str: string): string {
   if (!str) return ''
-  if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+
+  // Prevent CSV formula injection (DDE attacks)
+  // Prefix with single quote if starts with formula characters
+  if (/^[=+\-@\t\r]/.test(str)) {
+    str = "'" + str
+  }
+
+  // Escape quotes and wrap in quotes if contains special chars
+  if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes("'")) {
     return `"${str.replace(/"/g, '""')}"`
   }
   return str

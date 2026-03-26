@@ -3,17 +3,25 @@
 
 export const config = { runtime: 'edge' }
 
+const ALLOWED_ORIGIN = 'https://paperwork-genius.vercel.app'
+
+// Whitelist of allowed query parameters for Shovels.ai API
+const ALLOWED_PARAMS = ['lat', 'lng', 'radius', 'limit', 'offset', 'type', 'status', 'min_value', 'max_value', 'start_date', 'end_date']
+
 export default async function handler(request: Request) {
   const url = new URL(request.url)
   const searchParams = url.searchParams
+  const origin = request.headers.get('origin') || ''
+
+  // Validate CORS origin
+  const corsOrigin = origin === ALLOWED_ORIGIN || origin.includes('localhost') ? origin : ALLOWED_ORIGIN
 
   // Build Shovels.ai API URL (V2 API)
   const shovelsUrl = new URL('https://api.shovels.ai/v2/permits')
 
-  // Forward query parameters from frontend
+  // Forward only whitelisted query parameters
   searchParams.forEach((value, key) => {
-    // Skip cache-busting params
-    if (key !== '_' && key !== 'ts') {
+    if (ALLOWED_PARAMS.includes(key)) {
       shovelsUrl.searchParams.set(key, value)
     }
   })
@@ -61,8 +69,8 @@ export default async function handler(request: Request) {
         'Content-Type': 'application/json',
         // Cache for 1 hour, serve stale for 24 hours while revalidating
         'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400',
-        // CORS headers
-        'Access-Control-Allow-Origin': '*',
+        // CORS headers - restricted to allowed origins
+        'Access-Control-Allow-Origin': corsOrigin,
         'Access-Control-Allow-Methods': 'GET, OPTIONS',
       },
     })
